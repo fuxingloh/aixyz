@@ -78,7 +78,7 @@ describe("tests needing env vars", () => {
 
 ## Fully Offline Tests with `fake()`
 
-Use `fake()` from `aixyz/model` to replace the real LLM with a deterministic transform. Every test becomes CI-safe and runs without an API key:
+Use `fake()` from `aixyz/model` to replace the real LLM with a deterministic transform. It returns a `LanguageModelV3` that works with `ToolLoopAgent` — no API key, no network calls:
 
 ```typescript
 import { fake } from "aixyz/model";
@@ -92,17 +92,17 @@ export default new ToolLoopAgent({ model, instructions: "..." });
 Then test the model's output directly:
 
 ```typescript
+import type { Prompt } from "aixyz/model";
 import { model } from "./agent";
 
 test("echoes back the user message", async () => {
-  const result = await model.doGenerate({
-    prompt: [{ role: "user", content: [{ type: "text", text: "hello" }] }],
-  });
-  expect(result.content[0].text).toBe("You said: hello");
+  const prompt: Prompt = [{ role: "user", content: [{ type: "text", text: "hello" }] }];
+  const result = await model.doGenerate({ prompt });
+  expect(result.content).toEqual([{ type: "text", text: "You said: hello" }]);
 });
 ```
 
-See the [Fake Model Agent template](/templates/advanced/agent-fake-model) for a complete working example.
+See the [`aixyz/model` API reference](/api-reference/fake) for full details and the [Fake Model Agent template](/templates/advanced/agent-fake-model) for a complete working example.
 
 ## Running Tests
 

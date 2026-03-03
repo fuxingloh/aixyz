@@ -60,24 +60,28 @@ Because the fake model is deterministic, every test runs without an API key:
 
 ```typescript
 import { describe, expect, test } from "bun:test";
+import type { Prompt } from "aixyz/model";
 import { model } from "./agent";
 
 describe("palindrome checker (fake model)", () => {
   test("detects a palindrome", async () => {
-    const result = await model.doGenerate({
-      prompt: [{ role: "user", content: [{ type: "text", text: "racecar" }] }],
-    });
-    expect(result.content[0].text).toContain("is a palindrome");
+    const prompt: Prompt = [{ role: "user", content: [{ type: "text", text: "racecar" }] }];
+    const result = await model.doGenerate({ prompt });
+    expect(result.content[0]).toEqual(
+      expect.objectContaining({ type: "text", text: expect.stringContaining("is a palindrome") }),
+    );
   });
 
   test("tracks turn number from prompt context", async () => {
-    const prompt = [
+    const prompt: Prompt = [
       { role: "user", content: [{ type: "text", text: "hi" }] },
       { role: "assistant", content: [{ type: "text", text: "..." }] },
       { role: "user", content: [{ type: "text", text: "level" }] },
     ];
     const result = await model.doGenerate({ prompt });
-    expect(result.content[0].text).toContain("turn 2");
+    expect(result.content[0]).toEqual(
+      expect.objectContaining({ type: "text", text: expect.stringContaining("turn 2") }),
+    );
   });
 });
 ```
