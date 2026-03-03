@@ -41,6 +41,7 @@
     "ai": "^6"
   },
   "peerDependencies": {
+    "@ai-sdk/provider": "^3",
     "ai": "^6"
   },
   "peerDependenciesMeta": {
