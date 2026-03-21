@@ -290,12 +290,18 @@ async function buildVercel(
     console.log("Copied app/icon →", staticDir);
   }
 
+  // Copy .env files into the function directory for runtime env loading
+  const copiedEnvFiles = copyEnvFiles(cwd, funcDir);
+
   // Log summary
   console.log("");
   console.log("Build complete! Output:");
   console.log("  .vercel/output/config.json");
   console.log("  .vercel/output/functions/index.func/server.js");
   console.log("  .vercel/output/static/");
+  for (const envFile of copiedEnvFiles) {
+    console.log(`  .vercel/output/functions/index.func/${envFile}`);
+  }
 }
 
 /**
