@@ -27,11 +27,16 @@ These things will not change:
 - **Runtime is always Bun** — install with `bun`, run with `bun`, test with `bun test`
 - **Agent logic uses the Vercel AI SDK** (`ai` package) — `ToolLoopAgent`, `tool()`, `stepCountIs()` from `"ai"` — check [ai-sdk.dev](https://ai-sdk.dev) for the current version
 - **LLM providers use `@ai-sdk/*` adapters** — `@ai-sdk/openai` is the default but any Vercel AI SDK provider works (`@ai-sdk/anthropic`, `@ai-sdk/google`, `@ai-sdk/amazon-bedrock`, etc.)
-- **`create-aixyz-app` is always available** for scaffolding — use `bunx create-aixyz-app --help` to see all options
+- **MUST use `create-aixyz-app` to scaffold new agents** — see below
 - **`aixyz` CLI is always available** — `aixyz dev` for the dev/test loop, `aixyz build` for building
 - **Environment variables follow Next.js load order** — `.env`, `.env.local` (don't commit), `.env.<NODE_ENV>`, `.env.<NODE_ENV>.local`
 
 ## Getting Started
+
+> **CRITICAL: You MUST use `create-aixyz-app` to create new agent projects.**
+> Do NOT manually create `aixyz.config.ts`, `package.json`, `app/agent.ts`, or any other project files by hand.
+> Manually creating these files WILL result in broken builds, missing dependencies, and incorrect configurations.
+> Always scaffold with `bunx create-aixyz-app` first, then modify the generated files.
 
 ```bash
 # See all scaffolding options (TTY is disabled in AI/CI — every prompt has a flag)

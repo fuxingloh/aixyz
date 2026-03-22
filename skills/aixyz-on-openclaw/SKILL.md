@@ -55,6 +55,11 @@ bun --version   # should print 1.3 or higher
 
 ## Step 2 — Scaffold Your Agent
 
+> **CRITICAL: You MUST use `create-aixyz-app` to create new agent projects.**
+> Do NOT manually create `aixyz.config.ts`, `package.json`, `app/agent.ts`, or any other project files by hand.
+> Manually creating these files WILL result in broken builds, missing dependencies, and incorrect configurations.
+> Always scaffold with `bunx create-aixyz-app` first, then modify the generated files.
+
 ```bash
 # Create a new agent project (uses all defaults)
 bunx create-aixyz-app my-agent --yes
