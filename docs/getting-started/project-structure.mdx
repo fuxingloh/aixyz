@@ -23,7 +23,7 @@ An aixyz agent is defined by a small set of files in a standard layout. Run `aix
         {
           name: "app/",
           children: [
-            { name: "agent.ts", description: "Main agent definition", badge: { text: "required", color: "green" } },
+            { name: "agent.ts", description: "Main agent definition" },
             { name: "agent.test.ts", description: "Agent tests" },
             {
               name: "server.ts",
@@ -121,7 +121,7 @@ An aixyz agent is defined by a small set of files in a standard layout. Run `aix
 | File                | Required | Description                                                                       |
 | ------------------- | -------- | --------------------------------------------------------------------------------- |
 | `aixyz.config.ts`   | Yes      | [Agent metadata, payment config, and skills](/config/aixyz-config)                |
-| `app/agent.ts`      | Yes\*    | Agent definition using Vercel AI SDK                                              |
+| `app/agent.ts`      | No\*     | Agent definition using Vercel AI SDK                                              |
 | `app/agents/*.ts`   | No       | Sub-agent definitions, each gets its own endpoint                                 |
 | `app/tools/*.ts`    | No       | Tool implementations, auto-discovered by the build                                |
 | `app/server.ts`     | No       | [Custom server](/api-reference/aixyz-server) — overrides auto-generation entirely |
@@ -131,17 +131,17 @@ An aixyz agent is defined by a small set of files in a standard layout. Run `aix
 | `app/icon.svg`      | No       | Agent icon served as a static asset                                               |
 | `vercel.json`       | No       | Vercel deployment configuration                                                   |
 
-\* Required if no `app/server.ts` is provided.
+\* If omitted, the build skips A2A endpoints and only serves tools via MCP. Required if no `app/server.ts` is provided and you need A2A.
 
 ## How It Works
 
 The build pipeline scans the `app/` directory to auto-generate a server:
 
 1. Reads `aixyz.config.ts` for agent metadata and skills
-2. Imports `app/agent.ts` for the main agent definition
+2. Imports `app/agent.ts` for the main agent definition (if present)
 3. Discovers all `.ts` files in `app/agents/` for sub-agents (each gets its own A2A endpoint)
 4. Discovers all `.ts` files in `app/tools/` (excluding `_` prefixed files)
-5. Wires up A2A, MCP, and x402 endpoints automatically
+5. Wires up A2A (when agents exist), MCP (when tools exist), and x402 endpoints automatically
 
 The result is a server exposing:
 

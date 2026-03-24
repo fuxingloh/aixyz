@@ -72,7 +72,7 @@ Working agents demonstrating patterns. All share the same structure:
 examples/*/
   aixyz.config.ts     # Agent metadata and config (required)
   app/
-    agent.ts          # Agent definition (required if no server.ts)
+    agent.ts          # Agent definition (optional, enables A2A endpoints)
     server.ts         # Custom server (optional, overrides auto-generation)
     accepts.ts        # Custom x402 facilitator (optional)
     tools/*.ts        # Tool implementations (files starting with _ ignored)
