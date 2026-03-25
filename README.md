@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/logo/dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/logo/light.svg">
-    <img alt="aixyz" src="docs/logo/light.svg" width="auto" height="40px">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AgentlyHQ/aixyz/main/docs/logo/dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/AgentlyHQ/aixyz/main/docs/logo/light.svg">
+    <img alt="aixyz" src="https://raw.githubusercontent.com/AgentlyHQ/aixyz/main/docs/logo/light.svg" width="auto" height="120px">
   </picture>
 </p>
 
